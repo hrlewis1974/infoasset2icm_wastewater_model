@@ -83,6 +83,7 @@ class ImporterClassNode
 	end
 	
 	def ImporterClassNode.onEndRecordNode(obj)
+		
 		inNodeType = obj['node_type']
 		inSystemType = obj['system_type']
 		

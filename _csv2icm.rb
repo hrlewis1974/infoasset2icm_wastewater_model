@@ -31,62 +31,83 @@ end
 
 class ImporterClassNode
 	def ImporterClassNode.onBeginNode(obj)
+	
 		@systemTypeLookup={
-			# original ones
-			#'S' => 'storm', 'F' => 'foul',	'C' => 'combined', 'LD' => 'overland', 'Z' => 'other'
-			'WWCO' => 'foul',
-			'WWSC' => 'foul'
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
 		}
-		
-		@nodeTypeLookup = {
-			# original ones
-			#'M' => 'manhole', 'G' => 'break', 'F' => 'outfall'
-			'ACMH' => 'manhole',
-			'LHCE' => 'break',
-			'JOIN' => 'break',
-			'ACDW' => 'storage',
-			'TEE' => 'break',
-			'ACSY' => 'break',
-			'ACVP' => 'break',
-			'METR' => 'break',
-			'LATL' => 'break',
-			'BEND' => 'break',
-			'VALV' => 'break',
-			'ACVL' => 'break',
-			'PSTN' => 'storage',
-			'TAPB' => 'break',
-			'BNDY' => 'break',
-			'HHLD' => 'break',
-			'END' => 'manhole'
+	
+		@nodeTypeLookup = {		
+			'ACBH' => 'storage',    #Bore Hole  (Well / Wellhead )
+			'ACCL' => 'break',    	#Chlorination Point
+			'ACDP' => 'break',    	#Cable Draw Point
+			'ACDW' => 'storage',    #Dry Well 
+			'ACFM' => 'manhole',    #Flowmeter Chamber
+			'ACMH' => 'manhole',    #Access Chamber Manhole
+			'ACPU' => 'storage',    #Pump Chamber
+			'ACSY' => 'break',    	#Syphon Chamber 
+			'ACVP' => 'break',    	#Vent Point
+			'ACVU' => 'manhole',    #Vacuum Chamber / Pit
+			'ACVX' => 'manhole',    #Vortex Chamber
+			'ACWW' => 'storage',    #Wet Well 
+			'BEND' => 'break',    	#Bend
+			'END' => 'manhole',    	#End
+			'HHLD' => 'break',    	#Household
+			'INGD' => 'gully',    	#Inlet Grated Open End
+			'INND' => 'gully',    	#Inlet Open End
+			'JOIN' => 'break',    	#Join
+			'LHCE' => 'break',    	#Lamphole Cleaning Eye
+			'METR' => 'break',    	#Meter
+			'OTGD' => 'gully',    	#Outlet Grated Open End
+			'OTND' => 'gully',    	#Outlet Open End
+			'PSTN' => 'storage',    #Pump Station
+			'RGDN' => 'storage',    #Rain Garden
+			'SMP1' => 'gully',    	#Sump Single Side Entry
+			'SMP2' => 'gully',    	#Sump Double Side Entry
+			'SMPD' => 'gully',    	#Sump Dome
+			'TEE' => 'break',     	#Tee
+			'VALV' => 'break'     	#Valve
 		}
 	end
 	
 	def ImporterClassNode.onEndRecordNode(obj)
-		icmSystemType = obj['system_type']
-		icmNodeType = obj['node_type']
+		inNodeType = obj['node_type']
+		inSystemType = obj['system_type']
 		
-		if !icmSystemType.nil?
-			icmSystemType = icmSystemType.downcase
+		if !inNodeType.nil?
+			inNodeType = inNodeType#.downcase
 		end
 		
-		if !icmNodeType.nil?
-			icmNodeType = icmNodeType.downcase
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
 		end
-		
-		if @systemTypeLookup.has_key? icmSystemType
-			inNodeSystemType = @systemTypeLookup[icmSystemType]
+				
+		if @nodeTypeLookup.has_key? inNodeType
+			icmNodeNodeType = @nodeTypeLookup[inNodeType]
 		else
-			inNodeSystemType = 'other'
+			icmNodeNodeType = 'manhole'
 		end
 		
-		if @nodeTypeLookup.has_key? icmNodeType
-			inNodeNodeType = @nodeTypeLookup[icmNodeType]
+		if @systemTypeLookup.has_key? inSystemType
+			icmNodeSystemType = @systemTypeLookup[inSystemType]
 		else
-			inNodeNodeType = 'foul'
+			icmNodeSystemType = 'other'
 		end
 		
-		obj['node_type'] = inNodeNodeType
-		obj['system_type'] = inNodeSystemType
+		obj['node_type'] = icmNodeNodeType
+		obj['system_type'] = icmNodeSystemType
 		
 	end
 end
@@ -99,7 +120,9 @@ import_tables.push ImportTable.new('Node',
 	folder + '/exports/network.csv_cams_manhole.csv',
 	ImporterClassNode)
 
-puts "Import tables and config file setup"
+puts 'Import tables and config file setup'
+
+puts 'Start import'
 
 ##set options
 options=Hash.new
@@ -119,7 +142,7 @@ options=Hash.new
 #options['Import images'] = false							## Boolean | false | Asset networks only
 #options['Group Type'] = false								## Boolean | false | Asset networks only
 #options['Group Name'] = false								## Boolean | false | Asset networks only
-puts "specific import options defined"
+puts 'specific import options defined'
 	
 ## import tables into ICM
 # Loop over table configs

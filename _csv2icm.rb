@@ -24,13 +24,80 @@ class ImportTable
 	end
 end
 
+## Attribute Conversion from InfoAsset CSV Files into InfoWorks ICM
+
+# Callback Classes
+# Node - from InfoAsset manhole
+
+class ImporterClassNode
+	def ImporterClassNode.onBeginNode(obj)
+		@systemTypeLookup={
+			# original ones
+			#'S' => 'storm', 'F' => 'foul',	'C' => 'combined', 'LD' => 'overland', 'Z' => 'other'
+			'WWCO' => 'foul',
+			'WWSC' => 'foul'
+		}
+		
+		@nodeTypeLookup = {
+			# original ones
+			#'M' => 'manhole', 'G' => 'break', 'F' => 'outfall'
+			'ACMH' => 'manhole',
+			'LHCE' => 'break',
+			'JOIN' => 'break',
+			'ACDW' => 'storage',
+			'TEE' => 'break',
+			'ACSY' => 'break',
+			'ACVP' => 'break',
+			'METR' => 'break',
+			'LATL' => 'break',
+			'BEND' => 'break',
+			'VALV' => 'break',
+			'ACVL' => 'break',
+			'PSTN' => 'storage',
+			'TAPB' => 'break',
+			'BNDY' => 'break',
+			'HHLD' => 'break',
+			'END' => 'manhole'
+		}
+	end
+	
+	def ImporterClassNode.onEndRecordNode(obj)
+		icmSystemType = obj['system_type']
+		icmNodeType = obj['node_type']
+		
+		if !icmSystemType.nil?
+			icmSystemType = icmSystemType.downcase
+		end
+		
+		if !icmNodeType.nil?
+			icmNodeType = icmNodeType.downcase
+		end
+		
+		if @systemTypeLookup.has_key? icmSystemType
+			inNodeSystemType = @systemTypeLookup[icmSystemType]
+		else
+			inNodeSystemType = 'other'
+		end
+		
+		if @nodeTypeLookup.has_key? icmNodeType
+			inNodeNodeType = @nodeTypeLookup[icmNodeType]
+		else
+			inNodeNodeType = 'foul'
+		end
+		
+		obj['node_type'] = inNodeNodeType
+		obj['system_type'] = inNodeSystemType
+		
+	end
+end
+
 ## Set up the config files and table names
 import_tables = Array.new
 
 import_tables.push ImportTable.new('Node', 
-	folder + '/_csv2icm.cfg',
+	folder + '/_csv2icm.cfg', 
 	folder + '/exports/network.csv_cams_manhole.csv',
-	'')
+	ImporterClassNode)
 
 puts "Import tables and config file setup"
 

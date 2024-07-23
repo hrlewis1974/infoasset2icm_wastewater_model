@@ -4,6 +4,7 @@
 
 # ===========================================================================================
 # parameters
+folder = 'C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model'
 net=WSApplication.current_network
 net.clear_selection
 
@@ -21,30 +22,46 @@ net.run_SQL('Node', "
 	AND MEMBER(pipe_type,$pipe_type)=TRUE;
 	")
 
-# Set up params for exports
-exp_options=Hash.new
-exp_options['Use Display Precision'] = false		# Boolean | Default = true
-exp_options['Flag Fields '] = false					# Boolean | Default = true
-exp_options['Multiple Files'] = true				# Boolean | Default = false; Set to true to export to different files, false to export to the same file
-exp_options['Selection Only'] = true				# Boolean | Default = false
-#exp_options['Field Descriptions'] = false			# Boolean | Default = false
-#exp_options['Field Names'] = true					# Boolean | Default = true
-#exp_options['Native System Types'] = false			# Boolean | Default = false
-#exp_options['User Units'] = false					# Boolean | Default = false
-#exp_options['Object Types'] = false				# Boolean | Default = false
-#exp_options['Units Text'] = false					# Boolean | Default = false
-exp_options['Coordinate Arrays Format'] = 'Packed'	# String | Default = Packed. Either: Packed, None, or Separate
-exp_options['Other Arrays Format'] = 'Separate'
-# Boolean | Default = false; Set to true to convert coordinate values into WGS84
-exp_options['WGS84'] = false
+# Set up params for csv exports
+csv_options=Hash.new
+csv_options['Use Display Precision'] = false
+csv_options['Flag Fields '] = false
+csv_options['Multiple Files'] = true
+csv_options['Selection Only'] = true
+#csv_options['Field Descriptions'] = true
+#csv_options['Field Names'] = false
+#csv_options['Native System Types'] = true
+#csv_options['User Units'] = true
+#csv_options['Object Types'] = true
+#csv_options['Units Text'] = true
+csv_options['Coordinate Arrays Format'] = 'Packed'
+csv_options['Other Arrays Format'] = 'Separate'
+csv_options['WGS84'] = false
 
-# Export
+# Export to CSV files
 net.csv_export(
-	'C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model\exports\network.csv', 
-	exp_options
-	)
-	
+	folder + '\exports\network.csv', 
+	csv_options)
+
+# Set up params for GDB exports for pipes only
+params = Hash.new
+#params['Error File'] = errorFile
+params['Export Selection'] = true
+#params['Report Mode'] = false
+#params['Callback Class'] = Exporter
+#params['Image Folder'] = nil
+#params['Units Behaviour'] = 'Native'
+#params['Append'] = false
+#params['Previous Version'] = 0
+#params['WGS84'] = false
+#params['Don't Update Geometry'] = false
+
+#net.odec_export_ex('GDB', folder + '\_infoasset2icm.cfg', params,
+#    'Pipe', 'pipe', 'pipes', false, nil,
+#	folder + '\exports\pipe.gdb'
+#)
+
 net.clear_selection
 
 # Run the second batch file
-#system('C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model/_csv2icm.bat')
+system('C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model/_csv2icm.bat')

@@ -8,19 +8,17 @@ net=WSApplication.current_network
 net.clear_selection
 
 net.run_SQL('Node', "
-	SELECT 
-	WHERE (
-		status = 'INUS' OR 
-		status = 'REPU' OR 
-		status = 'STBY' OR 
-		status = 'STOK' OR 
-		status = 'END')
-	AND (
-		node_type <> 'ACBH' OR 
-		node_type <> 'ACCL' OR 
-		node_type <> 'ACDP' OR 
-		node_type <> 'HHLD' OR 
-		node_type <> 'END')
+	list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END';
+	list $type = 'ACBH', 'ACCL', 'ACDP', 'BNDY', 'HHLD', 'END';
+	list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
+
+	SELECT ALL FROM [All Nodes] IN Base SCENARIO
+	WHERE MEMBER(status,$status)=TRUE
+	AND MEMBER(node_type,$type)=FALSE;
+
+	SELECT ALL FROM [All Links] IN Base SCENARIO
+	WHERE MEMBER(status,$status)=TRUE
+	AND MEMBER(pipe_type,$pipe_type)=TRUE;
 	")
 
 # Set up params for exports
@@ -35,9 +33,7 @@ exp_options['Selection Only'] = true				# Boolean | Default = false
 #exp_options['User Units'] = false					# Boolean | Default = false
 #exp_options['Object Types'] = false				# Boolean | Default = false
 #exp_options['Units Text'] = false					# Boolean | Default = false
-
-# String | Default = Packed. Either: Packed, None, or Separate
-exp_options['Coordinate Arrays Format'] = 'None'	
+exp_options['Coordinate Arrays Format'] = 'Packed'	# String | Default = Packed. Either: Packed, None, or Separate
 exp_options['Other Arrays Format'] = 'Separate'
 # Boolean | Default = false; Set to true to convert coordinate values into WGS84
 exp_options['WGS84'] = false
@@ -51,4 +47,4 @@ net.csv_export(
 net.clear_selection
 
 # Run the second batch file
-system('C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model/_csv2icm.bat')
+#system('C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model/_csv2icm.bat')

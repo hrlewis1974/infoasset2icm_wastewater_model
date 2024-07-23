@@ -120,6 +120,11 @@ import_tables.push ImportTable.new('Node',
 	folder + '/_csv2icm.cfg', 
 	folder + '/exports/network.csv_cams_manhole.csv',
 	ImporterClassNode)
+	
+import_tables.push ImportTable.new('Conduit', 
+	folder + '/_csv2icm.cfg', 
+	folder + '/exports/network.csv_cams_pipe.csv',
+	'')
 
 puts 'Import tables and config file setup'
 
@@ -128,8 +133,8 @@ puts 'Start import'
 ##set options
 options=Hash.new
 #options['Error File'] = 'C:\Temp\ImportErrorLog.txt'		## String | blank | Path of error file
-#options['Set Value Flag'] = 'CSV'							## String | blank | Flag used for fields set from data
-#options['Default Value Flag'] = 'CSV'						## String | blank | Flag used for fields set from the default value column
+#options['Set Value Flag'] = '#A'							## String | blank | Flag used for fields set from data
+options['Default Value Flag'] = '#A'						## String | blank | Flag used for fields set from the default value column
 #options['Image Folder'] = 'C:\Temp\'						## String | blank | Folder to import images from (Asset networks only)
 #options['Duplication Behaviour'] = 'Merge'					## String | Merge | One of Duplication Behaviour:'Overwrite','Merge','Ignore'
 #options['Units Behaviour'] = 'Native'						## String | Native | One of 'Native','User','Custom'
@@ -138,7 +143,7 @@ options=Hash.new
 #options['Delete Missing Objects'] = false					## Boolean | false
 #options['Allow Multiple Asset IDs'] = false				## Boolean | false
 #options['Update Links From Points'] = false				## Boolean | false
-#options['Blob Merge'] = false								## Boolean | false
+#options['Blob Merge'] = true								## Boolean | false
 #options['Use Network Naming Conventions'] = false			## Boolean | false
 #options['Import images'] = false							## Boolean | false | Asset networks only
 #options['Group Type'] = false								## Boolean | false | Asset networks only

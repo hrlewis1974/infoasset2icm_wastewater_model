@@ -52,9 +52,9 @@ flowchart TD
 - This SQL effectively selects the network thats important for the hydraulic model.
 - The remainder of the SQL then pushes the selected network as CSV files to a folder
 
-## Committed Works
+##### source GIS
 <p align="left">
-  <img src="https://github.com/hrlewis1974/ww_modelling_spec/blob/8006252826faec873267cad09ec6d0a3fc9916bc/images/sp_committed_works.png" width=800 />
+  <img src="https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/8b46b291ee69ac4fb00f0dd558f77c9f39178b59/images/infoasset.JPG" width=800 />
 </p>
 
 ```ruby
@@ -156,6 +156,11 @@ PAUSE
 - In conjunction with the InfoAsset fields it applies various lookup tables to create new ones
 - the final set of data is then pushed to a network in an ICM model
 - The push of data will append new rows, overwrite existing rows with changed data and delete and ones removed from InfoAsset
+
+##### endpoint for  GIS
+<p align="left">
+  <img src="https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/8b46b291ee69ac4fb00f0dd558f77c9f39178b59/images/icm_network.JPG" width=800 />
+</p>
 
 ```ruby
 # IMPORT NETWORK DATA FROM CSV FILES INTO AN ICM NETWORK

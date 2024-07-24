@@ -9,17 +9,21 @@ net=WSApplication.current_network
 net.clear_selection
 
 net.run_SQL('Node', "
-	list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END';
+	list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END', 'VIRT';
 	list $type = 'ACBH', 'ACCL', 'ACDP', 'BNDY', 'HHLD', 'END';
-	list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
 
 	SELECT ALL FROM [All Nodes] IN Base SCENARIO
 	WHERE MEMBER(status,$status)=TRUE
 	AND MEMBER(node_type,$type)=FALSE;
 
+	list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
+
 	SELECT ALL FROM [All Links] IN Base SCENARIO
 	WHERE MEMBER(status,$status)=TRUE
 	AND MEMBER(pipe_type,$pipe_type)=TRUE;
+
+	SELECT ALL FROM [Pump];
+	SELECT ALL FROM [Weir];
 	")
 
 # Set up params for csv exports

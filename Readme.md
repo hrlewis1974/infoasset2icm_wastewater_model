@@ -1,6 +1,6 @@
 ## Table of contents
 
-- [Objective](#objective)
+- [Purpose](#purpose)
 - [Assumptions](#assumptions)
 - [Workflow](#workflow)
 - [Requirements](#requirements)
@@ -13,18 +13,19 @@
 
 ## Applications
 
-[![FME](https://img.shields.io/badge/License-FME-green.svg)](https://support.safe.com/hc/en-us)
+[![Autodesk](https://img.shields.io/badge/License-FME-green.svg)](https://www.autodesk.com/nz)
 
-## Objective
+## Purpose
 
-- provide timely advice to swimmers not to enter the water and swim in Titahi Bay
-- understand how to forecast sewer overflows using rainfall average recurrence interval (ARI) estimates
+This repository contains script and supporting files to assist in the conversion of an InfoAsset network to 
+Infoworks ICM (InfoWorks network)
 
 ## Assumptions
 
 order | assumption | notes
 --- | --- | ---
-'1' | The BFP database will need to use a property ID as its primary key to capture both property inspections and BFP devices at a property. This is because a survey may not result in a BFP device needing to be installed/replaced, or there may be multiple BFP devices on a property | **Requirements 1-7 - make it clear in the requirements**
+'1' | you have access to both InfoAsset and ICM Ultimate | **versions used are ICM 2024.4 respectively**
+'2' | need some coding knowledge such as Ruby and SQL | **reasonable knowledge**
 
 ## Workflow
 
@@ -98,6 +99,8 @@ Takes two numbers and returns the sum.
 **Creator 1**
 
 - <https://github.com/usernamecreator1>
+- <https://www.linkedin.com/pulse/converting-infosewer-model-icm-infoworks-network-using-dickinson/>
+- <https://help.autodesk.com/lessons/IWICMS_2024_ENU/files/Exchange.pdf>
 
 ## Contacts
 

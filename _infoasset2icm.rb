@@ -43,7 +43,9 @@ net.csv_export(
 	folder + '\exports\network.csv', 
 	csv_options)
 
-# Set up params for GDB exports for pipes only
+# Set up params for GDB exports if needed
+# however we are able to get the geometry from point_array
+# so no need
 params = Hash.new
 #params['Error File'] = errorFile
 params['Export Selection'] = true

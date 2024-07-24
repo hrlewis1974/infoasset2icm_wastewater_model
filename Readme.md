@@ -1,7 +1,7 @@
 ## Table of contents
 
 - [Purpose](#purpose)
-- [Assumptions](#assumptions)
+- [Requirements](#requirements)
 - [Workflow](#workflow)
 - [Code](#code)
 - [Web](#web)
@@ -16,17 +16,14 @@
 This repository contains script and supporting files to assist in the conversion of an InfoAsset network to 
 Infoworks ICM (InfoWorks network).
 
-The purpose of this piece of work is to remove the disconnect between the hydraulic models and asset data stored in InfoAsset. The intention from this point onwards is to maintain InfoAsset with the best available information such as pipe material, inverts and ground levels. Following some tidy up the base data it will then be possible to push changes such as new data/changed data and remove assets that have been deleted in InfoAsset.
+The purpose of this piece of work is to:
 
-Currently the main Ruby script file "_infoasset2icm.rb" can be run on the active network ie the one open in the Geoplan.
+- remove the disconnect between the hydraulic models and asset data stored in InfoAsset
+- enable a more robust model maintenance strategy for hydraulic model builds
+- the intention from this point onwards is to maintain InfoAsset with the best available information such as pipe material, inverts and ground levels
+- following some tidy up the base data it will then be possible to push changes such as new data/changed data and remove assets that have been deleted in InfoAsset
 
-On completion of the code a new network will be updated into:
-- database: snumbat://10.0.29.43:40000/wastewater ongoing/system_performance
-- network name='i2i network'
-- network location='>other>networks>'
-- network id=4765
-
-## Assumptions
+## Requirements
 
 order | assumption | notes
 --- | --- | ---
@@ -37,6 +34,14 @@ order | assumption | notes
 '5' | understading on Ruby Script | **good**
 
 ## Workflow
+
+Currently the main Ruby script file "_infoasset2icm.rb" can be run on the active network ie the one open in the Geoplan.
+
+On completion of the code a new network will be updated into:
+- database: snumbat://10.0.29.43:40000/wastewater ongoing/system_performance
+- network name='i2i network'
+- network location='>other>networks>'
+- network id=4765
 
 ```mermaid
 flowchart TD

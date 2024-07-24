@@ -24,7 +24,7 @@ Currently the main Ruby script file "_infoasset2icm.rb" can be run on the active
 
 On completion of the code a new network will be updated into:
 - database: snumbat://10.0.29.43:40000/wastewater ongoing/system_performance
-- network: name=i2i network, location=other..networks and id=4765
+- network: name='i2i network', location='other..networks' and id=4765
 
 ## Assumptions
 
@@ -39,12 +39,12 @@ order | assumption | notes
 ## Workflow
 
 ```mermaid
-  flowchart TD;
-		A[Deploy to production] --> B{Is it Friday?};
-		B -- Yes --> C[Do not reply];
-		B -- No --> D[Run deploy.sh to deploy!];
-		C ----> E[Enjoy your weekend];
-		D ----> E[Enjoy your weekend];
+flowchart TD
+    A[InfoAsset] -->|open network in geoplan| B(select: network>run ruby script)
+    B --> C{wait a little}
+    C -->|SQL| D[selects network in geoplan]
+    C -->|_infoasset2icm.rb| E[exports network as CSV files]
+    C -->|_csv2icm.rb| F[upodates CSV files into ICM network]
 ```
 
 ## Requirements

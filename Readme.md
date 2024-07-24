@@ -3,10 +3,9 @@
 - [Purpose](#purpose)
 - [Assumptions](#assumptions)
 - [Workflow](#workflow)
-- [Data](#data)
-- [Scope](#scope)
-- [Web Links](#web)
-- [Glossary](#glossary)
+- [Code](#cope)
+- [Web](#web)
+- [Contacts](#contacts)
 
 ## Applications
 
@@ -316,7 +315,7 @@ nw.unreserve
 puts 'Committed'
 ```
 
-## Web Links
+## Web
 
 - [my github front page](https://github.com/hrlewis1974)
 - [example of similar workflow](https://www.linkedin.com/pulse/converting-infosewer-model-icm-infoworks-network-using-dickinson/)

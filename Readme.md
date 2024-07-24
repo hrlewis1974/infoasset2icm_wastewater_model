@@ -3,12 +3,9 @@
 - [Purpose](#purpose)
 - [Assumptions](#assumptions)
 - [Workflow](#workflow)
-- [Requirements](#requirements)
-- [Users](#users)
 - [Data](#data)
 - [Scope](#scope)
-- [Creators](#creators)
-- [Contacts](#contacts)
+- [Web Links](#web)
 - [Glossary](#glossary)
 
 ## Applications
@@ -40,44 +37,14 @@ order | assumption | notes
 
 ```mermaid
 flowchart TD
-    A[InfoAsset] -->|open network in geoplan| B(select: network>run ruby script)
+    A[InfoAsset] -->|open network in geoplan| B(select: network>run ruby script>_infoasset2icm.rb)
     B --> C{wait a little}
     C -->|SQL| D[selects network in geoplan]
     C -->|_infoasset2icm.rb| E[exports network as CSV files]
     C -->|_csv2icm.rb| F[upodates CSV files into ICM network]
 ```
 
-## Requirements
-
-order | requirement | user story | business rules
---- | --- | --- | ---
-'1' | The solution must be accessible on desktop machine and mobile device | I should be able to log in to the application via my mobile or desk top So that i can perform my tasks irrespective of the platform am using | |
-
-## Users
-
-activity | summary of activities
---- | ---
-Reporting and Integration | Functionalities that support data sharing with the client councils
-
-## Data
-
-### Table 1
-
-General use table:
-
-- one
-- two
-
-field | data type | compulsory (y/n) | notes
---- | --- | --- | ---
-full namne | string(64) | y | basic information
-
-## Scope
-
-id | what | why | so?
---- | --- | --- | ---
-
-## API Reference
+## Code
 
 #### Get all items
 
@@ -103,22 +70,20 @@ id | what | why | so?
 
 Takes two numbers and returns the sum.
 
-## Creators
+## Web Links
 
-**Creator 1**
-
-- <https://github.com/usernamecreator1>
-- <https://www.linkedin.com/pulse/converting-infosewer-model-icm-infoworks-network-using-dickinson/>
-- <https://help.autodesk.com/lessons/IWICMS_2024_ENU/files/Exchange.pdf>
+- [my github front page]: https://github.com/hrlewis1974
+- [example of similar workflow]: https://www.linkedin.com/pulse/converting-infosewer-model-icm-infoworks-network-using-dickinson/
+- [InfoAsset and ICM Exchange language]: https://help.autodesk.com/lessons/IWICMS_2024_ENU/files/Exchange.pdf
 
 ## Contacts
 
 council | contact | email | contact details
 --- | --- | --- | ---
-UHCC | Kelly Gee | Kelly.Gee@uhcc.govt.nz | Building Compliance Officer
+WWL | Hywel Lewis | hywel.lewis@wellingtonwater.co.nz | Snr Hydraulic Modeller
 
 ## Glossary
 
 term | meaning
 --- | ---
-ARI | Average Recurrence Interval usually in years
+Ruby | Coding language

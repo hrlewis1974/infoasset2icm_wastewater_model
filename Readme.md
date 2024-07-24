@@ -24,10 +24,7 @@ Currently the main Ruby script file "_infoasset2icm.rb" can be run on the active
 
 On completion of the code a new network will be updated into:
 - database: snumbat://10.0.29.43:40000/wastewater ongoing/system_performance
-- network: 
-- - name: i2i network
-- - location: other..networks
-- - id: 4765
+- network: name=i2i network, location=other..networks and id=4765
 
 ## Assumptions
 

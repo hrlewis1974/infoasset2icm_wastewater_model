@@ -342,7 +342,7 @@ puts 'Committed'
 ## Web
 
 - [my github front page](https://github.com/hrlewis1974)
-- [example of similar workflow](https://www.linkedin.com/pulse/converting-infosewer-model-icm-infoworks-network-using-dickinson/)
+- [How do I import an InfoWorks ICM Model into InfoAsset Manager?](https://github.com/innovyze/Open-Source-Support/tree/main/02%20InfoAsset%20Manager/01%20Ruby/0003%20Import%20an%20InfoWorks%20ICM%20Model%20into%20InfoAsset%20Manager)
 - [InfoAsset and ICM Exchange language](https://help.autodesk.com/lessons/IWICMS_2024_ENU/files/Exchange.pdf)
 
 ## Contacts

@@ -1,4 +1,4 @@
-# IMPORT NODE DATA FROM A CSV FILE INTO ICM
+# IMPORT NETWORK DATA FROM CSV FILES INTO AN ICM NETWORK
 
 ## Import the 'date' library
 require 'date'

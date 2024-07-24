@@ -24,8 +24,11 @@ Infoworks ICM (InfoWorks network)
 
 order | assumption | notes
 --- | --- | ---
-'1' | you have access to both InfoAsset and ICM Ultimate | **versions used are ICM 2024.4 respectively**
-'2' | need some coding knowledge such as Ruby and SQL | **reasonable knowledge**
+'1' | access to ICM Ultimate and ICM Exchange.exe | **version used: ICM 2024.5**
+'2' | access to ICM Ultimate and iexchange.exe | **version used: InfoAsset 2021.8.1**
+'3' | understanding on InfoAsset SQL | **good**
+'4' | understanding on ICM | **good**
+'5' | understading on Ruby Script | **good**
 
 ## Workflow
 

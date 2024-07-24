@@ -16,11 +16,15 @@
 This repository contains script and supporting files to assist in the conversion of an InfoAsset network to 
 Infoworks ICM (InfoWorks network).
 
+The purpose of this piece of work is to remove the disconnect between the hydraulic models and asset data stored in InfoAsset. The intention from this point onwards is to maintain InfoAsset with the best available information such as pipe material, inverts and ground levels. Following some tidy up the base data it will then be possible to push changes such as new data/changed data and remove assets that have been deleted in InfoAsset.
+
 Currently the main Ruby script file "_infoasset2icm.rb" can be run on the active network ie the one open in the Geoplan.
 
 On completion of the code a new network will be updated into:
 - database: snumbat://10.0.29.43:40000/wastewater ongoing/system_performance
-- network: name='i2i network', location='other..networks' and id=4765
+- network name='i2i network'
+- network location='>other>networks>'
+- network id=4765
 
 ## Assumptions
 
@@ -47,9 +51,9 @@ flowchart TD
 
 #### Run Ruby script in network currently open in an InfoAsset Geoplan
 
-- The is ruby script is to be run on the actrive network.
-- The first part of the script runs an SQL on the network.
-- This SQL effectively selects the network thats important for the hydraulic model.
+- The is ruby script is to be run on the active network
+- The first part of the script runs an SQL on the network
+- This SQL effectively selects the network thats important for the hydraulic models
 - The remainder of the SQL then pushes the selected network as CSV files to a folder
 
 ##### source GIS
@@ -152,8 +156,8 @@ PAUSE
 
 #### Run a second Ruby script
 
-- The final script pickes up the InfoAsset exported network CSV files
-- In conjunction with the InfoAsset fields it applies various lookup tables to create new ones
+- The final script picks up the InfoAsset exported network CSV files
+- In conjunction with the InfoAsset fields it applies various lookup tables to create new fields
 - the final set of data is then pushed to a network in an ICM model
 - The push of data will append new rows, overwrite existing rows with changed data and delete and ones removed from InfoAsset
 

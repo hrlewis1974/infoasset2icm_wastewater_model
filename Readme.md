@@ -47,6 +47,11 @@ flowchart TD
 
 #### Run Ruby script in network currently open in an InfoAsset Geoplan
 
+- The is ruby script is to be run on the actrive network.
+- The first part of the script runs an SQL on the network.
+- This SQL effectively selects the network thats important for the hydraulic model.
+- The remainder of the SQL then pushes the selected network as CSV files to a folder
+
 ```ruby
 # main_script.rb
 
@@ -121,6 +126,10 @@ system('C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model/_csv2icm.bat')
 
 #### Run a batch file
 
+- The last few lines of the above ruby script starts a batch file
+- The batch file bascially starts and application ... ICMExchange.exe
+- and passes the following ruby script for it to process
+
 ```bat
 @echo off
 
@@ -137,6 +146,10 @@ PAUSE
 ```
 
 #### Run a second Ruby script
+
+- The final script pickes up the InfoAsset exported network CSV files
+- In conjunction with the InfoAsset fields it applies various lookup tables to create new ones
+- the final set of data is then pushed to a network in an ICM model
 
 ```ruby
 # IMPORT NETWORK DATA FROM CSV FILES INTO AN ICM NETWORK

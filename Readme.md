@@ -318,7 +318,7 @@ puts 'Committed'
 
 ## Web Links
 
-- [my github front page]: https://github.com/hrlewis1974
+- [my github front page](https://github.com/hrlewis1974)
 - [example of similar workflow]: https://www.linkedin.com/pulse/converting-infosewer-model-icm-infoworks-network-using-dickinson/
 - [InfoAsset and ICM Exchange language]: https://help.autodesk.com/lessons/IWICMS_2024_ENU/files/Exchange.pdf
 

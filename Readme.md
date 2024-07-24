@@ -13,13 +13,15 @@
 
 ## Applications
 
-[![Autodesk](https://img.shields.io/badge/License-FME-green.svg)](https://www.autodesk.com/nz)
+[![Autodesk](https://img.shields.io/badge/License-Autodesk-green.svg)](https://www.autodesk.com/nz)
 
 ## Purpose
 
 This repository contains script and supporting files to assist in the conversion of an InfoAsset network to 
 Infoworks ICM (InfoWorks network).
+
 Currently the main Ruby script file "_infoasset2icm.rb" can be run on the active network ie the one open inthe Geoplan.
+
 On completion of the code a new network will be updated into:
 - database: snumbat://10.0.29.43:40000/wastewater ongoing/system_performance
 - network: i2i network (..other..networks..)

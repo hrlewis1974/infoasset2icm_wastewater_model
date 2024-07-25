@@ -4,6 +4,7 @@
 - [Requirements](#requirements)
 - [Workflow](#workflow)
 - [Code](#code)
+- [Recommendations](#recommendations)
 - [Web](#web)
 - [Contacts](#contacts)
 
@@ -749,6 +750,19 @@ nw.commit('Data imported from CSV and TSV files')
 nw.unreserve
 puts 'Committed'
 ```
+
+## Recommendations
+
+The above work has tested how data can be imported successfully from InfoAsset into ICM.
+
+As part of the process the following recommendations should be applied to asset data updates in InfoAsset:
+
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
 
 ## Web
 

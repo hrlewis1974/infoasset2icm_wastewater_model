@@ -455,65 +455,16 @@ end
 ## Set up the config files and table names
 import_tables = Array.new
 
-import_tables.push ImportTable.new(
-	'csv', 'Node', 
-	folder + '/_network.cfg', 
-	folder + '/exports/csv/network.csv_cams_manhole.csv',
-	ImporterClassNode)
-	
-import_tables.push ImportTable.new(
-	'csv', 'Conduit', 
-	folder + '/_network.cfg', 
-	folder + '/exports/csv/network.csv_cams_pipe.csv',
-	ImporterClassPipe)
-	
-import_tables.push ImportTable.new(
-	'tsv', 'Pump', 
-	folder + '/_network.cfg', 
-	folder + '/exports/tsv/pump.txt',
-	ImporterClassPump)
-
-import_tables.push ImportTable.new(
-	'tsv', 'Screen', 
-	folder + '/_network.cfg', 
-	folder + '/exports/tsv/screen.txt',
-	ImporterClassScreen)
-
-import_tables.push ImportTable.new(
-	'tsv', 'Orifice', 
-	folder + '/_network.cfg', 
-	folder + '/exports/tsv/orifice.txt',
-	ImporterClassOrifice)
-
-import_tables.push ImportTable.new(
-	'tsv', 'Sluice', 
-	folder + '/_network.cfg', 
-	folder + '/exports/tsv/sluice.txt',
-	ImporterClassSluice)
-
-import_tables.push ImportTable.new(
-	'tsv', 'Flume', 
-	folder + '/_network.cfg', 
-	folder + '/exports/tsv/flume.txt',
-	ImporterClassFlume)
-
-import_tables.push ImportTable.new(
-	'tsv', 'Siphon', 
-	folder + '/_network.cfg', 
-	folder + '/exports/tsv/siphon.txt',
-	ImporterClassSiphon)
-
-import_tables.push ImportTable.new(
-	'tsv', 'Weir', 
-	folder + '/_network.cfg', 
-	folder + '/exports/tsv/weir.txt',
-	ImporterClassWeir)
-	
-#import_tables.push ImportTable.new(
-#	'tsv', 'User control', 
-#	folder + '/_network.cfg', 
-#	folder + '/exports/tsv/valve.txt',
-#	'')
+import_tables.push ImportTable.new(	'csv', 'Node', folder + '/_network.cfg', folder + '/exports/csv/network.csv_cams_manhole.csv', ImporterClassNode)
+import_tables.push ImportTable.new('csv', 'Conduit', folder + '/_network.cfg', folder + '/exports/csv/network.csv_cams_pipe.csv', ImporterClassPipe)
+import_tables.push ImportTable.new(	'tsv', 'Pump', folder + '/_network.cfg', folder + '/exports/tsv/pump.txt', ImporterClassPump)
+import_tables.push ImportTable.new(	'tsv', 'Screen', folder + '/_network.cfg', folder + '/exports/tsv/screen.txt', ImporterClassScreen)
+import_tables.push ImportTable.new(	'tsv', 'Orifice', folder + '/_network.cfg', folder + '/exports/tsv/orifice.txt', ImporterClassOrifice)
+import_tables.push ImportTable.new('tsv', 'Sluice', folder + '/_network.cfg', folder + '/exports/tsv/sluice.txt', ImporterClassSluice)
+import_tables.push ImportTable.new('tsv', 'Flume', folder + '/_network.cfg', folder + '/exports/tsv/flume.txt', ImporterClassFlume)
+import_tables.push ImportTable.new('tsv', 'Siphon', folder + '/_network.cfg', folder + '/exports/tsv/siphon.txt', ImporterClassSiphon)
+import_tables.push ImportTable.new(	'tsv', 'Weir', folder + '/_network.cfg', folder + '/exports/tsv/weir.txt', ImporterClassWeir)
+#import_tables.push ImportTable.new('tsv', 'User control', folder + '/_network.cfg', folder + '/exports/tsv/valve.txt',	'')
 
 puts 'Import tables and config file setup'
 

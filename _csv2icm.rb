@@ -50,30 +50,30 @@ class ImporterClassNode
 		}
 	
 		@nodeTypeLookup = {		
-			'ACBH' => 'storage',    #Bore Hole  (Well / Wellhead )
+			'ACBH' => 'manhole',    #Bore Hole  (Well / Wellhead )
 			'ACCL' => 'break',    	#Chlorination Point
 			'ACDP' => 'break',    	#Cable Draw Point
-			'ACDW' => 'storage',    #Dry Well 
+			'ACDW' => 'manhole',    #Dry Well 
 			'ACFM' => 'manhole',    #Flowmeter Chamber
 			'ACMH' => 'manhole',    #Access Chamber Manhole
-			'ACPU' => 'storage',    #Pump Chamber
+			'ACPU' => 'manhole',    #Pump Chamber
 			'ACSY' => 'break',    	#Syphon Chamber 
 			'ACVP' => 'break',    	#Vent Point
 			'ACVU' => 'manhole',    #Vacuum Chamber / Pit
 			'ACVX' => 'manhole',    #Vortex Chamber
-			'ACWW' => 'storage',    #Wet Well 
+			'ACWW' => 'manhole',    #Wet Well 
 			'BEND' => 'break',    	#Bend
 			'END' => 'manhole',    	#End
 			'HHLD' => 'break',    	#Household
 			'INGD' => 'gully',    	#Inlet Grated Open End
 			'INND' => 'gully',    	#Inlet Open End
-			'JOIN' => 'break',    	#Join
+			'JOIN' => 'manhole',    #Join
 			'LHCE' => 'break',    	#Lamphole Cleaning Eye
 			'METR' => 'break',    	#Meter
 			'OTGD' => 'gully',    	#Outlet Grated Open End
 			'OTND' => 'gully',    	#Outlet Open End
-			'PSTN' => 'storage',    #Pump Station
-			'RGDN' => 'storage',    #Rain Garden
+			'PSTN' => 'manhole',    #Pump Station
+			'RGDN' => 'manhole',    #Rain Garden
 			'SMP1' => 'gully',    	#Sump Single Side Entry
 			'SMP2' => 'gully',    	#Sump Double Side Entry
 			'SMPD' => 'gully',    	#Sump Dome
@@ -113,76 +113,18 @@ class ImporterClassNode
 	end
 end
 
-# Pump - from ICM Pump
-#
-class ImporterClassPump
-	def ImporterClassPump.OnEndRecordPump(obj)
-		
-		@systemTypeLookup={
-			'PWDB' => 'water',    	#Potable Water Distribution
-			'PWSC' => 'water',    	#Potable Water Service Connection
-			'PWST' => 'water',    	#Potable Water Storage
-			'PWTM' => 'water',    	#Potable Water Transmission
-			'PWTP' => 'water',    	#Potable Water Treatment 
-			'RWST' => 'water',    	#Raw Water Storage
-			'RWTN' => 'water',    	#Raw Water Transfer
-			'SWCO' => 'storm',    	#Stormwater Collection
-			'SWSC' => 'storm',    	#Stormwater Service Connection
-			'SWTD' => 'storm',    	#Stormwater Treatment Device
-			'WWCO' => 'foul',    	#Wastewater Collection 
-			'WWSC' => 'foul',    	#Wasterwater Service Connection
-			'WWST' => 'foul',    	#Wastewater Storage
-			'WWTP' => 'foul'     	#Wastewater Treatment 
-		}
-		
-		obj['link_suffix'] = obj['id'][-1]
-		
-		inSystemType=obj['system_type']
-		
-		if !inSystemType.nil?
-			inSystemType = inSystemType#.downcase
-		end
-		
-		if @systemTypeLookup.has_key? inSystemType
-			icmPipeSystemType = @systemTypeLookup[inSystemType]
-		else
-			icmPipeSystemType = 'other'
-		end
-		
-		obj['system_type'] = icmPipeSystemType
-		
-		if obj['type'].upcase == 'F' 
-			obj['link_type'] == 'FIXPMP'
-		elsif obj['type'].upcase == 'V' 
-			obj['link_type'] == 'VSPPMP'
-		elsif obj['type'].upcase == 'V' 
-			obj['link_type'] = 'VFDPMP'
-		elsif obj['type'].upcase == 'R' 
-			obj['link_type'] = 'ROTPMP'
-		elsif obj['type'].upcase == 'S' 
-			obj['link_type'] = 'SCRPMP'
-		end
-		
-	end
-end
-
 ## Set up the config files and table names
 import_tables = Array.new
 
 import_tables.push ImportTable.new('Node', 
 	folder + '/_csv2icm.cfg', 
-	folder + '/exports/network.csv_cams_manhole.csv',
+	folder + '/exports/csv/network.csv_cams_manhole.csv',
 	ImporterClassNode)
 	
 import_tables.push ImportTable.new('Conduit', 
 	folder + '/_csv2icm.cfg', 
-	folder + '/exports/network.csv_cams_pipe.csv',
+	folder + '/exports/csv/network.csv_cams_pipe.csv',
 	'')
-	
-import_tables.push ImportTable.new('Pump', 
-	folder + '/_csv2icm.cfg', 
-	folder + '/exports/network.csv_cams_pump.csv',
-	ImporterClassPump)
 
 puts 'Import tables and config file setup'
 
@@ -200,7 +142,7 @@ options['Duplication Behaviour'] = 'Overwrite'				## String | Merge | One of Dup
 #options['Update Only'] = false								## Boolean | false
 options['Delete Missing Objects'] = true					## Boolean | false
 #options['Allow Multiple Asset IDs'] = false				## Boolean | false
-#options['Update Links From Points'] = false				## Boolean | false
+options['Update Links From Points'] = false					## Boolean | false
 #options['Blob Merge'] = true								## Boolean | false
 #options['Use Network Naming Conventions'] = false			## Boolean | false
 #options['Import images'] = false							## Boolean | false | Asset networks only

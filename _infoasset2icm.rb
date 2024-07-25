@@ -5,6 +5,7 @@
 # ===========================================================================================
 # parameters
 folder = 'C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model'
+
 net=WSApplication.current_network
 net.clear_selection
 
@@ -44,7 +45,7 @@ csv_options['WGS84'] = false
 
 # Export to CSV files
 net.csv_export(
-	folder + '\exports\network.csv', 
+	folder + '\exports\csv\network.csv', 
 	csv_options)
 
 # Set up params for GDB exports if needed
@@ -70,4 +71,5 @@ params['Export Selection'] = true
 net.clear_selection
 
 # Run the second batch file
-system('C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model/_csv2icm.bat')
+system(folder + '\_csv2icm.bat')
+#system(folder + '\_tab2icm.bat')

@@ -117,12 +117,12 @@ end
 import_tables = Array.new
 
 import_tables.push ImportTable.new('Node', 
-	folder + '/_csv2icm.cfg', 
+	folder + '/_network.cfg', 
 	folder + '/exports/csv/network.csv_cams_manhole.csv',
 	ImporterClassNode)
 	
 import_tables.push ImportTable.new('Conduit', 
-	folder + '/_csv2icm.cfg', 
+	folder + '/_network.cfg', 
 	folder + '/exports/csv/network.csv_cams_pipe.csv',
 	'')
 

@@ -39,20 +39,22 @@ csv_options['WGS84'] = false
 tsv_options = Hash.new
 tsv_options['Export Selection'] = true
 
-## Export to CSV files
-net.csv_export(
-	folder + '\exports\csv\network.csv', 
-	csv_options)
+# Export CSV files
+net.csv_export(folder + '\exports\csv\network.csv', csv_options)
 
-## Export to TSV files
-net.odec_export_ex('TSV', 
-	folder + '\infoasset2icm.cfg', 
-	tsv_options, 
-	'Pump', folder + '\exports\tsv\pump.txt'
-)
+# Export TSV files
+## look through these .. later on
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Pump', folder + '\exports\tsv\pump.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Screen', folder + '\exports\tsv\screen.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Orifice', folder + '\exports\tsv\orifice.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Sluice', folder + '\exports\tsv\sluice.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Flume', folder + '\exports\tsv\flume.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Siphon', folder + '\exports\tsv\siphon.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Weir', folder + '\exports\tsv\weir.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Valve', folder + '\exports\tsv\valve.txt')
 
 net.clear_selection
 
 # Run the second batch file
-#system(folder + '\_network.bat')
+system(folder + '\_network.bat')
 #system(folder + '\_ancillaries.bat')

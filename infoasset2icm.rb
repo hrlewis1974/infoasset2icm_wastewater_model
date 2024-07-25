@@ -12,25 +12,18 @@ net.clear_selection
 net.run_SQL('Node', "
 	list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END', 'VIRT';
 	list $type = 'ACBH', 'ACCL', 'ACDP', 'BNDY', 'HHLD', 'END';
-
-	SELECT ALL FROM [All Nodes] IN Base SCENARIO
-	WHERE MEMBER(status,$status)=TRUE
-	AND MEMBER(node_type,$type)=FALSE;
-
 	list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
 
-	SELECT ALL FROM [All Links] IN Base SCENARIO
-	WHERE MEMBER(status,$status)=TRUE
-	AND MEMBER(pipe_type,$pipe_type)=TRUE;
-
-	SELECT ALL FROM [Pump];
-	SELECT ALL FROM [Screen];
-	SELECT ALL FROM [Orifice];
-	SELECT ALL FROM [Sluice];
-	SELECT ALL FROM [Flume];
-	SELECT ALL FROM [Siphon];
-	SELECT ALL FROM [Weir];
-	SELECT ALL FROM [Valve];
+	SELECT ALL FROM [All Nodes] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(node_type,$type)=FALSE;
+	SELECT ALL FROM [All Links] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(pipe_type,$pipe_type)=TRUE;
+	SELECT ALL FROM [Pump] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Screen] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Orifice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Sluice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Flume] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Siphon] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Weir] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Valve] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
 	")
 
 # Set up params

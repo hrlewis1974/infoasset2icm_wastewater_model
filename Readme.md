@@ -76,97 +76,79 @@ DESELECT ALL;
 
 list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END', 'VIRT';
 list $type = 'ACBH', 'ACCL', 'ACDP', 'BNDY', 'HHLD', 'END';
-
-SELECT ALL FROM [All Nodes] IN Base SCENARIO
-WHERE MEMBER(status,$status)=TRUE
-AND MEMBER(node_type,$type)=FALSE;
-
 list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
 
-SELECT ALL FROM [All Links] IN Base SCENARIO
-WHERE MEMBER(status,$status)=TRUE
-AND MEMBER(pipe_type,$pipe_type)=TRUE;
-
-SELECT ALL FROM [Pump];
-SELECT ALL FROM [Screen];
-SELECT ALL FROM [Orifice];
-SELECT ALL FROM [Sluice];
-SELECT ALL FROM [Flume];
-SELECT ALL FROM [Siphon];
-SELECT ALL FROM [Weir];
-SELECT ALL FROM [Valve];
+SELECT ALL FROM [All Nodes] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(node_type,$type)=FALSE;
+SELECT ALL FROM [All Links] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(pipe_type,$pipe_type)=TRUE;
+SELECT ALL FROM [Pump] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Screen] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Orifice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Sluice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Flume] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Siphon] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Weir] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Valve] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
 ```
 
 ```ruby
-# main_script.rb
+# infoasset2icm.rb
 
-# EXPORT MODEL NETWORK AS CSV FILE
+# EXPORT MODEL NETWORK AS CSV AND TSV FILES
 
 # ===========================================================================================
 # parameters
 folder = 'C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model'
+
 net=WSApplication.current_network
 net.clear_selection
 
 net.run_SQL('Node', "
-	list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END';
+	list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END', 'VIRT';
 	list $type = 'ACBH', 'ACCL', 'ACDP', 'BNDY', 'HHLD', 'END';
 	list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
 
-	SELECT ALL FROM [All Nodes] IN Base SCENARIO
-	WHERE MEMBER(status,$status)=TRUE
-	AND MEMBER(node_type,$type)=FALSE;
-
-	SELECT ALL FROM [All Links] IN Base SCENARIO
-	WHERE MEMBER(status,$status)=TRUE
-	AND MEMBER(pipe_type,$pipe_type)=TRUE;
+	SELECT ALL FROM [All Nodes] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(node_type,$type)=FALSE;
+	SELECT ALL FROM [All Links] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(pipe_type,$pipe_type)=TRUE;
+	SELECT ALL FROM [Pump] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Screen] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Orifice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Sluice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Flume] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Siphon] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Weir] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+	SELECT ALL FROM [Valve] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
 	")
 
-# Set up params for csv exports
+# Set up params
 csv_options=Hash.new
 csv_options['Use Display Precision'] = false
 csv_options['Flag Fields '] = false
 csv_options['Multiple Files'] = true
 csv_options['Selection Only'] = true
-#csv_options['Field Descriptions'] = true
-#csv_options['Field Names'] = false
-#csv_options['Native System Types'] = true
-#csv_options['User Units'] = true
-#csv_options['Object Types'] = true
-#csv_options['Units Text'] = true
 csv_options['Coordinate Arrays Format'] = 'Packed'
 csv_options['Other Arrays Format'] = 'Separate'
 csv_options['WGS84'] = false
+tsv_options = Hash.new
+tsv_options['Export Selection'] = true
 
-# Export to CSV files
-net.csv_export(
-	folder + '\exports\network.csv', 
-	csv_options)
+# Export CSV files
+net.csv_export(folder + '\exports\csv\network.csv', csv_options)
 
-# Set up params for GDB exports if needed
-# however we are able to get the geometry from point_array
-# so no need
-params = Hash.new
-#params['Error File'] = errorFile
-params['Export Selection'] = true
-#params['Report Mode'] = false
-#params['Callback Class'] = Exporter
-#params['Image Folder'] = nil
-#params['Units Behaviour'] = 'Native'
-#params['Append'] = false
-#params['Previous Version'] = 0
-#params['WGS84'] = false
-#params['Don't Update Geometry'] = false
-
-#net.odec_export_ex('GDB', folder + '\_infoasset2icm.cfg', params,
-#    'Pipe', 'pipe', 'pipes', false, nil,
-#	folder + '\exports\pipe.gdb'
-#)
+# Export TSV files
+## look through these .. later on
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Pump', folder + '\exports\tsv\pump.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Screen', folder + '\exports\tsv\screen.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Orifice', folder + '\exports\tsv\orifice.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Sluice', folder + '\exports\tsv\sluice.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Flume', folder + '\exports\tsv\flume.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Siphon', folder + '\exports\tsv\siphon.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Weir', folder + '\exports\tsv\weir.txt')
+net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Valve', folder + '\exports\tsv\valve.txt')
 
 net.clear_selection
 
 # Run the second batch file
-system('C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model/_csv2icm.bat')
+#system(folder + '\_network.bat')
 ```
 
 #### Run a batch file
@@ -185,7 +167,7 @@ set bit=64
 if %bit%==32 (set "path=C:\Program Files (x86)")
 if %bit%==64 (set "path=C:\Program Files")
 
-"%path%\%folder%" "%~dp0%\_csv2icm.rb"
+"%path%\%folder%" "%~dp0%\_network.rb"
 
 PAUSE
 ```
@@ -219,9 +201,10 @@ nw.reserve
 
 ## Define a useful class
 class ImportTable
-	attr_accessor :in_table, :cfg_file, :csv_file, :cb_class
+	attr_accessor :tbl_format, :in_table, :cfg_file, :csv_file, :cb_class
 
-	def initialize(in_table, cfg_file, csv_file, cb_class)
+	def initialize(tbl_format, in_table, cfg_file, csv_file, cb_class)
+		@tbl_format = tbl_format
 		@in_table = in_table
 		@cfg_file = cfg_file
 		@csv_file = csv_file
@@ -255,30 +238,30 @@ class ImporterClassNode
 		}
 	
 		@nodeTypeLookup = {		
-			'ACBH' => 'storage',    #Bore Hole  (Well / Wellhead )
+			'ACBH' => 'manhole',    #Bore Hole  (Well / Wellhead )
 			'ACCL' => 'break',    	#Chlorination Point
 			'ACDP' => 'break',    	#Cable Draw Point
-			'ACDW' => 'storage',    #Dry Well 
+			'ACDW' => 'manhole',    #Dry Well 
 			'ACFM' => 'manhole',    #Flowmeter Chamber
 			'ACMH' => 'manhole',    #Access Chamber Manhole
-			'ACPU' => 'storage',    #Pump Chamber
+			'ACPU' => 'manhole',    #Pump Chamber
 			'ACSY' => 'break',    	#Syphon Chamber 
 			'ACVP' => 'break',    	#Vent Point
 			'ACVU' => 'manhole',    #Vacuum Chamber / Pit
 			'ACVX' => 'manhole',    #Vortex Chamber
-			'ACWW' => 'storage',    #Wet Well 
+			'ACWW' => 'manhole',    #Wet Well 
 			'BEND' => 'break',    	#Bend
 			'END' => 'manhole',    	#End
 			'HHLD' => 'break',    	#Household
 			'INGD' => 'gully',    	#Inlet Grated Open End
 			'INND' => 'gully',    	#Inlet Open End
-			'JOIN' => 'break',    	#Join
+			'JOIN' => 'manhole',    #Join
 			'LHCE' => 'break',    	#Lamphole Cleaning Eye
 			'METR' => 'break',    	#Meter
 			'OTGD' => 'gully',    	#Outlet Grated Open End
 			'OTND' => 'gully',    	#Outlet Open End
-			'PSTN' => 'storage',    #Pump Station
-			'RGDN' => 'storage',    #Rain Garden
+			'PSTN' => 'manhole',    #Pump Station
+			'RGDN' => 'manhole',    #Rain Garden
 			'SMP1' => 'gully',    	#Sump Single Side Entry
 			'SMP2' => 'gully',    	#Sump Double Side Entry
 			'SMPD' => 'gully',    	#Sump Dome
@@ -318,18 +301,406 @@ class ImporterClassNode
 	end
 end
 
+# Pipe - from InfoAsset Pipe
+#
+class ImporterClassPipe
+	def ImporterClassPipe.onEndRecordConduit(obj)
+
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+
+		inSystemType = obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.upcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Pump - from InfoAsset Pump
+#
+class ImporterClassPump
+	def ImporterClassPump.OnEndRecordPump(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+		if obj['type'].upcase == 'F' 
+			obj['link_type'] == 'FIXPMP'
+		elsif obj['type'].upcase == 'V' 
+			obj['link_type'] == 'VSPPMP'
+		elsif obj['type'].upcase == 'V' 
+			obj['link_type'] = 'VFDPMP'
+		elsif obj['type'].upcase == 'R' 
+			obj['link_type'] = 'ROTPMP'
+		elsif obj['type'].upcase == 'S' 
+			obj['link_type'] = 'SCRPMP'
+		end
+		
+	end
+end
+
+# Screen - from InfoAsset Screen
+#
+class ImporterClassScreen
+	def ImporterClassScreen.OnEndRecordScreen(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Orifice - from InfoAsset Orifice
+#
+class ImporterClassOrifice
+	def ImporterClassOrifice.OnEndRecordOrifice(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Sluice - from InfoAsset Sluice
+#
+class ImporterClassSluice
+	def ImporterClassSluice.OnEndRecordSluice(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Flume - from InfoAsset Flume
+#
+class ImporterClassFlume
+	def ImporterClassFlume.OnEndRecordFlume(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Siphon - from InfoAsset Siphon
+#
+class ImporterClassSiphon
+	def ImporterClassSiphon.OnEndRecordSiphon(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Weir - from InfoAsset Weir
+#
+class ImporterClassWeir
+	def ImporterClassWeir.OnEndRecordWeir(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
 ## Set up the config files and table names
 import_tables = Array.new
 
-import_tables.push ImportTable.new('Node', 
-	folder + '/_csv2icm.cfg', 
-	folder + '/exports/network.csv_cams_manhole.csv',
+import_tables.push ImportTable.new(
+	'csv', 'Node', 
+	folder + '/_network.cfg', 
+	folder + '/exports/csv/network.csv_cams_manhole.csv',
 	ImporterClassNode)
 	
-import_tables.push ImportTable.new('Conduit', 
-	folder + '/_csv2icm.cfg', 
-	folder + '/exports/network.csv_cams_pipe.csv',
-	'')
+import_tables.push ImportTable.new(
+	'csv', 'Conduit', 
+	folder + '/_network.cfg', 
+	folder + '/exports/csv/network.csv_cams_pipe.csv',
+	ImporterClassPipe)
+	
+import_tables.push ImportTable.new(
+	'tsv', 'Pump', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/pump.txt',
+	ImporterClassPump)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Screen', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/screen.txt',
+	ImporterClassScreen)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Orifice', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/orifice.txt',
+	ImporterClassOrifice)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Sluice', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/sluice.txt',
+	ImporterClassSluice)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Flume', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/flume.txt',
+	ImporterClassFlume)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Siphon', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/siphon.txt',
+	ImporterClassSiphon)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Weir', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/weir.txt',
+	ImporterClassWeir)
+	
+#import_tables.push ImportTable.new(
+#	'tsv', 'User control', 
+#	folder + '/_network.cfg', 
+#	folder + '/exports/tsv/valve.txt',
+#	'')
 
 puts 'Import tables and config file setup'
 
@@ -347,7 +718,7 @@ options['Duplication Behaviour'] = 'Overwrite'				## String | Merge | One of Dup
 #options['Update Only'] = false								## Boolean | false
 options['Delete Missing Objects'] = true					## Boolean | false
 #options['Allow Multiple Asset IDs'] = false				## Boolean | false
-#options['Update Links From Points'] = false				## Boolean | false
+options['Update Links From Points'] = false					## Boolean | false
 #options['Blob Merge'] = true								## Boolean | false
 #options['Use Network Naming Conventions'] = false			## Boolean | false
 #options['Import images'] = false							## Boolean | false | Asset networks only
@@ -363,7 +734,7 @@ import_tables.each{|table_info|
 	
 	# Do the import
 	nw.odic_import_ex(
-		'csv',					# import data format
+		table_info.tbl_format,	# input table format
 		table_info.cfg_file,	# field mapping config file
 		options,				# specified options override the default options
 		table_info.in_table,	# import to ICM table name
@@ -374,7 +745,7 @@ import_tables.each{|table_info|
 puts 'End import'
 
 ## Commit changes and unreserve the network
-nw.commit('Data imported from CSV')
+nw.commit('Data imported from CSV and TSV files')
 nw.unreserve
 puts 'Committed'
 ```

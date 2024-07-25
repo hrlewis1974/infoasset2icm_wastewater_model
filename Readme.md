@@ -66,6 +66,37 @@ flowchart TD
   <img src="https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/8b46b291ee69ac4fb00f0dd558f77c9f39178b59/images/infoasset.JPG" width=800 />
 </p>
 
+```sql
+/*  object type: all nodes and links
+    purpose: select the network thats important 
+    for the wastewater hydraulic model
+*/
+
+DESELECT ALL;
+
+list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END', 'VIRT';
+list $type = 'ACBH', 'ACCL', 'ACDP', 'BNDY', 'HHLD', 'END';
+
+SELECT ALL FROM [All Nodes] IN Base SCENARIO
+WHERE MEMBER(status,$status)=TRUE
+AND MEMBER(node_type,$type)=FALSE;
+
+list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
+
+SELECT ALL FROM [All Links] IN Base SCENARIO
+WHERE MEMBER(status,$status)=TRUE
+AND MEMBER(pipe_type,$pipe_type)=TRUE;
+
+SELECT ALL FROM [Pump];
+SELECT ALL FROM [Screen];
+SELECT ALL FROM [Orifice];
+SELECT ALL FROM [Sluice];
+SELECT ALL FROM [Flume];
+SELECT ALL FROM [Siphon];
+SELECT ALL FROM [Weir];
+SELECT ALL FROM [Valve];
+```
+
 ```ruby
 # main_script.rb
 

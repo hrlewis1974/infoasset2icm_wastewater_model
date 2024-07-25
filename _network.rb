@@ -206,6 +206,252 @@ class ImporterClassPump
 	end
 end
 
+# Screen - from InfoAsset Screen
+#
+class ImporterClassScreen
+	def ImporterClassScreen.OnEndRecordScreen(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Orifice - from InfoAsset Orifice
+#
+class ImporterClassOrifice
+	def ImporterClassOrifice.OnEndRecordOrifice(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Sluice - from InfoAsset Sluice
+#
+class ImporterClassSluice
+	def ImporterClassSluice.OnEndRecordSluice(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Flume - from InfoAsset Flume
+#
+class ImporterClassFlume
+	def ImporterClassFlume.OnEndRecordFlume(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Siphon - from InfoAsset Siphon
+#
+class ImporterClassSiphon
+	def ImporterClassSiphon.OnEndRecordSiphon(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
+# Weir - from InfoAsset Weir
+#
+class ImporterClassWeir
+	def ImporterClassWeir.OnEndRecordWeir(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+	end
+end
+
 ## Set up the config files and table names
 import_tables = Array.new
 
@@ -226,6 +472,48 @@ import_tables.push ImportTable.new(
 	folder + '/_network.cfg', 
 	folder + '/exports/tsv/pump.txt',
 	ImporterClassPump)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Screen', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/screen.txt',
+	ImporterClassScreen)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Orifice', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/orifice.txt',
+	ImporterClassOrifice)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Sluice', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/sluice.txt',
+	ImporterClassSluice)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Flume', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/flume.txt',
+	ImporterClassFlume)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Siphon', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/siphon.txt',
+	ImporterClassSiphon)
+
+import_tables.push ImportTable.new(
+	'tsv', 'Weir', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/weir.txt',
+	ImporterClassWeir)
+	
+#import_tables.push ImportTable.new(
+#	'tsv', 'User control', 
+#	folder + '/_network.cfg', 
+#	folder + '/exports/tsv/valve.txt',
+#	'')
 
 puts 'Import tables and config file setup'
 

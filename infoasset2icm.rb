@@ -24,7 +24,13 @@ net.run_SQL('Node', "
 	AND MEMBER(pipe_type,$pipe_type)=TRUE;
 
 	SELECT ALL FROM [Pump];
+	SELECT ALL FROM [Screen];
+	SELECT ALL FROM [Orifice];
+	SELECT ALL FROM [Sluice];
+	SELECT ALL FROM [Flume];
+	SELECT ALL FROM [Siphon];
 	SELECT ALL FROM [Weir];
+	SELECT ALL FROM [Valve];
 	")
 
 # Set up params
@@ -56,5 +62,4 @@ net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Valve', f
 net.clear_selection
 
 # Run the second batch file
-system(folder + '\_network.bat')
-#system(folder + '\_ancillaries.bat')
+#system(folder + '\_network.bat')

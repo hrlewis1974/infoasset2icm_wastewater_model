@@ -55,4 +55,4 @@ net.odec_export_ex('TSV', folder + '\infoasset2icm.cfg', tsv_options, 'Valve', f
 net.clear_selection
 
 # Run the second batch file
-#system(folder + '\_network.bat')
+system(folder + '\_network.bat')

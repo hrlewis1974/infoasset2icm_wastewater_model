@@ -14,9 +14,10 @@ nw.reserve
 
 ## Define a useful class
 class ImportTable
-	attr_accessor :in_table, :cfg_file, :csv_file, :cb_class
+	attr_accessor :tbl_format, :in_table, :cfg_file, :csv_file, :cb_class
 
-	def initialize(in_table, cfg_file, csv_file, cb_class)
+	def initialize(tbl_format, in_table, cfg_file, csv_file, cb_class)
+		@tbl_format = tbl_format
 		@in_table = in_table
 		@cfg_file = cfg_file
 		@csv_file = csv_file
@@ -152,18 +153,79 @@ class ImporterClassPipe
 	end
 end
 
+# Pump - from InfoAsset Pump
+#
+class ImporterClassPump
+	def ImporterClassPump.OnEndRecordPump(obj)
+		
+		@systemTypeLookup={
+			'PWDB' => 'water',    	#Potable Water Distribution
+			'PWSC' => 'water',    	#Potable Water Service Connection
+			'PWST' => 'water',    	#Potable Water Storage
+			'PWTM' => 'water',    	#Potable Water Transmission
+			'PWTP' => 'water',    	#Potable Water Treatment 
+			'RWST' => 'water',    	#Raw Water Storage
+			'RWTN' => 'water',    	#Raw Water Transfer
+			'SWCO' => 'storm',    	#Stormwater Collection
+			'SWSC' => 'storm',    	#Stormwater Service Connection
+			'SWTD' => 'storm',    	#Stormwater Treatment Device
+			'WWCO' => 'foul',    	#Wastewater Collection 
+			'WWSC' => 'foul',    	#Wasterwater Service Connection
+			'WWST' => 'foul',    	#Wastewater Storage
+			'WWTP' => 'foul'     	#Wastewater Treatment 
+		}
+		
+		obj['link_suffix'] = obj['id'][-1]
+		
+		inSystemType=obj['system_type']
+		
+		if !inSystemType.nil?
+			inSystemType = inSystemType#.downcase
+		end
+		
+		if @systemTypeLookup.has_key? inSystemType
+			icmPipeSystemType = @systemTypeLookup[inSystemType]
+		else
+			icmPipeSystemType = 'other'
+		end
+		
+		obj['system_type'] = icmPipeSystemType
+		
+		if obj['type'].upcase == 'F' 
+			obj['link_type'] == 'FIXPMP'
+		elsif obj['type'].upcase == 'V' 
+			obj['link_type'] == 'VSPPMP'
+		elsif obj['type'].upcase == 'V' 
+			obj['link_type'] = 'VFDPMP'
+		elsif obj['type'].upcase == 'R' 
+			obj['link_type'] = 'ROTPMP'
+		elsif obj['type'].upcase == 'S' 
+			obj['link_type'] = 'SCRPMP'
+		end
+		
+	end
+end
+
 ## Set up the config files and table names
 import_tables = Array.new
 
-import_tables.push ImportTable.new('Node', 
+import_tables.push ImportTable.new(
+	'csv', 'Node', 
 	folder + '/_network.cfg', 
 	folder + '/exports/csv/network.csv_cams_manhole.csv',
 	ImporterClassNode)
 	
-import_tables.push ImportTable.new('Conduit', 
+import_tables.push ImportTable.new(
+	'csv', 'Conduit', 
 	folder + '/_network.cfg', 
 	folder + '/exports/csv/network.csv_cams_pipe.csv',
 	ImporterClassPipe)
+	
+import_tables.push ImportTable.new(
+	'tsv', 'Pump', 
+	folder + '/_network.cfg', 
+	folder + '/exports/tsv/pump.txt',
+	ImporterClassPump)
 
 puts 'Import tables and config file setup'
 
@@ -197,7 +259,7 @@ import_tables.each{|table_info|
 	
 	# Do the import
 	nw.odic_import_ex(
-		'csv',					# import data format
+		table_info.tbl_format,	# input table format
 		table_info.cfg_file,	# field mapping config file
 		options,				# specified options override the default options
 		table_info.in_table,	# import to ICM table name
@@ -208,6 +270,6 @@ import_tables.each{|table_info|
 puts 'End import'
 
 ## Commit changes and unreserve the network
-nw.commit('Data imported from CSV')
+nw.commit('Data imported from CSV and TSV files')
 nw.unreserve
 puts 'Committed'

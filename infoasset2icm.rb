@@ -1,6 +1,6 @@
-# main_script.rb
+# infoasset2icm.rb
 
-# EXPORT MODEL NETWORK AS CSV FILE
+# EXPORT MODEL NETWORK AS CSV AND TSV FILES
 
 # ===========================================================================================
 # parameters
@@ -27,49 +27,32 @@ net.run_SQL('Node', "
 	SELECT ALL FROM [Weir];
 	")
 
-# Set up params for csv exports
+# Set up params
 csv_options=Hash.new
 csv_options['Use Display Precision'] = false
 csv_options['Flag Fields '] = false
 csv_options['Multiple Files'] = true
 csv_options['Selection Only'] = true
-#csv_options['Field Descriptions'] = true
-#csv_options['Field Names'] = false
-#csv_options['Native System Types'] = true
-#csv_options['User Units'] = true
-#csv_options['Object Types'] = true
-#csv_options['Units Text'] = true
 csv_options['Coordinate Arrays Format'] = 'Packed'
 csv_options['Other Arrays Format'] = 'Separate'
 csv_options['WGS84'] = false
+tsv_options = Hash.new
+tsv_options['Export Selection'] = true
 
-# Export to CSV files
+## Export to CSV files
 net.csv_export(
 	folder + '\exports\csv\network.csv', 
 	csv_options)
 
-# Set up params for GDB exports if needed
-# however we are able to get the geometry from point_array
-# so no need
-params = Hash.new
-#params['Error File'] = errorFile
-params['Export Selection'] = true
-#params['Report Mode'] = false
-#params['Callback Class'] = Exporter
-#params['Image Folder'] = nil
-#params['Units Behaviour'] = 'Native'
-#params['Append'] = false
-#params['Previous Version'] = 0
-#params['WGS84'] = false
-#params['Don't Update Geometry'] = false
-
-#net.odec_export_ex('GDB', folder + '\_infoasset2icm.cfg', params,
-#    'Pipe', 'pipe', 'pipes', false, nil,
-#	folder + '\exports\pipe.gdb'
-#)
+## Export to TSV files
+net.odec_export_ex('TSV', 
+	folder + '\infoasset2icm.cfg', 
+	tsv_options, 
+	'Pump', folder + '\exports\tsv\pump.txt'
+)
 
 net.clear_selection
 
 # Run the second batch file
-system(folder + '\_csv2icm.bat')
-#system(folder + '\_tab2icm.bat')
+#system(folder + '\_network.bat')
+#system(folder + '\_ancillaries.bat')

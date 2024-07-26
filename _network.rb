@@ -195,8 +195,6 @@ class ImporterClassPump
 			obj['link_type'] == 'FIXPMP'
 		elsif obj['type'].upcase == 'V' 
 			obj['link_type'] == 'VSPPMP'
-		elsif obj['type'].upcase == 'V' 
-			obj['link_type'] = 'VFDPMP'
 		elsif obj['type'].upcase == 'R' 
 			obj['link_type'] = 'ROTPMP'
 		elsif obj['type'].upcase == 'S' 

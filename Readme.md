@@ -189,6 +189,8 @@ The following PDF was used as a template for each import class
 
 [Standards and Choice List ... expanded](https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/f9bbd65038cabec49882a9418023ae32a2fbf0df/excel/standards%20and%20choices.pdf)
 
+<img src="https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/f9bbd65038cabec49882a9418023ae32a2fbf0df/excel/standards%20and%20choices.pdf" alt="some text"  width="4200" height="4200">
+
 ```ruby
 # IMPORT NETWORK DATA FROM CSV FILES INTO AN ICM NETWORK
 

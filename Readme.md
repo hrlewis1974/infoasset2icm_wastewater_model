@@ -185,13 +185,94 @@ PAUSE
   <img src="https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/8b46b291ee69ac4fb00f0dd558f77c9f39178b59/images/icm_network.JPG" width=800 />
 </p>
 
-The following PDF was used as a template for each import class
+The following table was used as a template for each import class
 
-[Standards and Choice List ... expanded](https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/f9bbd65038cabec49882a9418023ae32a2fbf0df/excel/standards%20and%20choices.pdf)
-
-```{r label, out.width = "85%", fig.cap = "caption"}
-include_graphics("https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/f9bbd65038cabec49882a9418023ae32a2fbf0df/excel/standards%20and%20choices.pdf") 
-```
+| order | in_feature | Text | Description | out_feature | out_type | ruby_code | notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | valve.type | SRM1 | Sewer-Rising Main Valve AIR | orifice.link_type | Orific | 'SRM1' => 'Orific',    #Sewer-Rising Main Valve AIR | create an orifice - however make sure it is full open |
+| 2 | valve.type | SRM2 | Sewer-Rising Main Valve BF | orifice.link_type | Orific | 'SRM2' => 'Orific',    #Sewer-Rising Main Valve BF | create an orifice - however make sure it is full open |
+| 3 | valve.type | SRM3 | Sewer-Rising Main Valve Gate | orifice.link_type | Orific | 'SRM3' => 'Orific',    #Sewer-Rising Main Valve Gate | create an orifice - however make sure it is full open |
+| 4 | valve.type | SRM4 | Sewer-Rising Main Valve NR | orifice.link_type | Orific | 'SRM4' => 'Orific',    #Sewer-Rising Main Valve NR | create an orifice - however make sure it is full open |
+| 5 | valve.type | SRM5 | Sewer-Rising Main Valve Reflux | flap.valve_type | Circular | 'SRM5' => 'Circular',    #Sewer-Rising Main Valve Reflux |  |
+| 6 | valve.type | SRM6 | Sewer-Rising Main Valve Sluice | sluice.link_type | Sluice | 'SRM6' => 'Sluice',    #Sewer-Rising Main Valve Sluice |  |
+| 7 | valve.type | SRM7 | Sewer-Rising Main Shut Valve | orifice.link_type | Orific | 'SRM7' => 'Orific',    #Sewer-Rising Main Shut Valve | create an orifice - however make sure it is full closed |
+| 8 | screen.type | S | Standard | NA | NA | 'S' => 'NA',    #Standard | out_type not needed as there isn't a type in ICM |
+| 9 | sluice.type | S | Standard | sluice.link_type | Sluice | 'S' => 'Sluice',    #Standard |  |
+| 10 | sluice.type | V | Variable vertical sluice | sluice.link_type | VSGate | 'V' => 'VSGate',    #Variable vertical sluice |  |
+| 83 | sluice.type | RS | Radial sluice | sluice.link_type | RSGate | 'RS' => 'RSGate',    #Radial sluice | this would be a new type in InfoAsset |
+| 84 | sluice.type | VR | Variable radial sluice | sluice.link_type | VRGate | 'VR' => 'VRGate',    #Variable radial sluice | this would be a new type in InfoAsset |
+| 11 | all.system_type | PWDB | Potable Water Distribution | all.system_type | water | 'PWDB' => 'water',    #Potable Water Distribution |  |
+| 12 | all.system_type | PWSC | Potable Water Service Connection | all.system_type | water | 'PWSC' => 'water',    #Potable Water Service Connection |  |
+| 13 | all.system_type | PWST | Potable Water Storage | all.system_type | water | 'PWST' => 'water',    #Potable Water Storage |  |
+| 14 | all.system_type | PWTM | Potable Water Transmission | all.system_type | water | 'PWTM' => 'water',    #Potable Water Transmission |  |
+| 15 | all.system_type | PWTP | Potable Water Treatment  | all.system_type | water | 'PWTP' => 'water',    #Potable Water Treatment  |  |
+| 16 | all.system_type | RWST | Raw Water Storage | all.system_type | water | 'RWST' => 'water',    #Raw Water Storage |  |
+| 17 | all.system_type | RWTN | Raw Water Transfer | all.system_type | water | 'RWTN' => 'water',    #Raw Water Transfer |  |
+| 18 | all.system_type | SWCO | Stormwater Collection | all.system_type | storm | 'SWCO' => 'storm',    #Stormwater Collection |  |
+| 19 | all.system_type | SWSC | Stormwater Service Connection | all.system_type | storm | 'SWSC' => 'storm',    #Stormwater Service Connection |  |
+| 20 | all.system_type | SWTD | Stormwater Treatment Device | all.system_type | storm | 'SWTD' => 'storm',    #Stormwater Treatment Device |  |
+| 21 | all.system_type | WWCO | Wastewater Collection  | all.system_type | foul | 'WWCO' => 'foul',    #Wastewater Collection  |  |
+| 22 | all.system_type | WWSC | Wasterwater Service Connection | all.system_type | foul | 'WWSC' => 'foul',    #Wasterwater Service Connection |  |
+| 23 | all.system_type | WWST | Wastewater Storage | all.system_type | foul | 'WWST' => 'foul',    #Wastewater Storage |  |
+| 24 | all.system_type | WWTP | Wastewater Treatment  | all.system_type | foul | 'WWTP' => 'foul',    #Wastewater Treatment  |  |
+| 25 | node.node_type | ACBH | Bore Hole  (Well / Wellhead ) | node.node_type | storage | 'ACBH' => 'storage',    #Bore Hole  (Well / Wellhead ) |  |
+| 26 | node.node_type | ACCL | Chlorination Point | node.node_type | break | 'ACCL' => 'break',    #Chlorination Point |  |
+| 27 | node.node_type | ACDP | Cable Draw Point | node.node_type | break | 'ACDP' => 'break',    #Cable Draw Point |  |
+| 28 | node.node_type | ACDW | Dry Well  | node.node_type | storage | 'ACDW' => 'storage',    #Dry Well  |  |
+| 29 | node.node_type | ACFM | Flowmeter Chamber | node.node_type | manhole | 'ACFM' => 'manhole',    #Flowmeter Chamber |  |
+| 30 | node.node_type | ACMH | Access Chamber Manhole | node.node_type | manhole | 'ACMH' => 'manhole',    #Access Chamber Manhole |  |
+| 31 | node.node_type | ACPU | Pump Chamber | node.node_type | storage | 'ACPU' => 'storage',    #Pump Chamber |  |
+| 32 | node.node_type | ACSY | Syphon Chamber  | node.node_type | break | 'ACSY' => 'break',    #Syphon Chamber  |  |
+| 33 | node.node_type | ACVP | Vent Point | node.node_type | break | 'ACVP' => 'break',    #Vent Point |  |
+| 34 | node.node_type | ACVU | Vacuum Chamber / Pit | node.node_type | manhole | 'ACVU' => 'manhole',    #Vacuum Chamber / Pit |  |
+| 35 | node.node_type | ACVX | Vortex Chamber | node.node_type | manhole | 'ACVX' => 'manhole',    #Vortex Chamber |  |
+| 36 | node.node_type | ACWW | Wet Well  | node.node_type | storage | 'ACWW' => 'storage',    #Wet Well  |  |
+| 37 | node.node_type | BEND | Bend | node.node_type | break | 'BEND' => 'break',    #Bend |  |
+| 38 | node.node_type | END | End | node.node_type | manhole | 'END' => 'manhole',    #End |  |
+| 39 | node.node_type | HHLD | Household | node.node_type | break | 'HHLD' => 'break',    #Household |  |
+| 40 | node.node_type | INGD | Inlet Grated Open End | node.node_type | gully | 'INGD' => 'gully',    #Inlet Grated Open End |  |
+| 41 | node.node_type | INND | Inlet Open End | node.node_type | gully | 'INND' => 'gully',    #Inlet Open End |  |
+| 42 | node.node_type | JOIN | Join | node.node_type | break | 'JOIN' => 'break',    #Join |  |
+| 43 | node.node_type | LHCE | Lamphole Cleaning Eye | node.node_type | break | 'LHCE' => 'break',    #Lamphole Cleaning Eye |  |
+| 44 | node.node_type | METR | Meter | node.node_type | break | 'METR' => 'break',    #Meter |  |
+| 45 | node.node_type | OTGD | Outlet Grated Open End | node.node_type | gully | 'OTGD' => 'gully',    #Outlet Grated Open End |  |
+| 46 | node.node_type | OTND | Outlet Open End | node.node_type | gully | 'OTND' => 'gully',    #Outlet Open End |  |
+| 47 | node.node_type | PSTN | Pump Station | node.node_type | storage | 'PSTN' => 'storage',    #Pump Station |  |
+| 48 | node.node_type | RGDN | Rain Garden | node.node_type | storage | 'RGDN' => 'storage',    #Rain Garden |  |
+| 49 | node.node_type | SMP1 | Sump Single Side Entry | node.node_type | gully | 'SMP1' => 'gully',    #Sump Single Side Entry |  |
+| 50 | node.node_type | SMP2 | Sump Double Side Entry | node.node_type | gully | 'SMP2' => 'gully',    #Sump Double Side Entry |  |
+| 51 | node.node_type | SMPD | Sump Dome | node.node_type | gully | 'SMPD' => 'gully',    #Sump Dome |  |
+| 52 | node.node_type | TEE | Tee | node.node_type | break | 'TEE' => 'break',    #Tee |  |
+| 53 | node.node_type | VALV | Valve | node.node_type | break | 'VALV' => 'break',    #Valve |  |
+| 54 | all.status | INUS | In Use | NA | NA | 'INUS' => 'NA',    #In Use | used to filter active assets - otherwise not used in ICM |
+| 55 | all.status | AOOS | Active - Out of Service  | NA | NA | 'AOOS' => 'NA',    #Active - Out of Service  | used to filter active assets - otherwise not used in ICM |
+| 56 | all.status | STBY | Active - Standby  | NA | NA | 'STBY' => 'NA',    #Active - Standby  | used to filter active assets - otherwise not used in ICM |
+| 57 | all.status | STOK | Active - Stock | NA | NA | 'STOK' => 'NA',    #Active - Stock | used to filter active assets - otherwise not used in ICM |
+| 58 | all.status | REMO | Removed | NA | NA | 'REMO' => 'NA',    #Removed | used to filter active assets - otherwise not used in ICM |
+| 59 | all.status | ABAN | Abandoned | NA | NA | 'ABAN' => 'NA',    #Abandoned | used to filter active assets - otherwise not used in ICM |
+| 60 | all.status | SPAR | Decommissioned / Spare | NA | NA | 'SPAR' => 'NA',    #Decommissioned / Spare | used to filter active assets - otherwise not used in ICM |
+| 61 | all.status | VIRT | Virtual connection | NA | NA | 'VIRT' => 'NA',    #Virtual connection | used to filter active assets - otherwise not used in ICM |
+| 62 | all.status | REPU | Active - Repurposed (Duct) | NA | NA | 'REPU' => 'NA',    #Active - Repurposed (Duct) | used to filter active assets - otherwise not used in ICM |
+| 63 | all.status | EROR | Error during Data Entry | NA | NA | 'EROR' => 'NA',    #Error during Data Entry | used to filter active assets - otherwise not used in ICM |
+| 64 | flume.type | R | Rectangular-throated Flume | flume.link_type | RFLUME | 'R' => 'RFLUME',    #Rectangular-throated Flume |  |
+| 65 | flume.type | T | Trapezoidal-throated Flume | flume.link_type | TFLUME | 'T' => 'TFLUME',    #Trapezoidal-throated Flume |  |
+| 66 | flume.type | U | U-throated Flume | flume.link_type | UFLUME | 'U' => 'UFLUME',    #U-throated Flume |  |
+| 67 | flume.type | F | Regular Flume | flume.link_type | RFLUME | 'F' => 'RFLUME',    #Regular Flume |  |
+| 68 | orifice.type | O | Orifice | orifice.link_type | Orific | 'O' => 'Orific',    #Orifice |  |
+| 69 | orifice.type | V | Variable discharge | orifice.link_type | Vldorf | 'V' => 'Vldorf',    #Variable discharge |  |
+| 70 | pump.type | F | Fixed Speed Pump | pump.link_type | FIXPMP | 'F' => 'FIXPMP',    #Fixed Speed Pump |  |
+| 71 | pump.type | V | Variable Speed Pump | pump.link_type | VSPPMP | 'V' => 'VSPPMP',    #Variable Speed Pump |  |
+| 72 | pump.type | R | Rotodynamic Pump | pump.link_type | ROTPMP | 'R' => 'ROTPMP',    #Rotodynamic Pump |  |
+| 73 | pump.type | S | Screw pump | pump.link_type | SCRPMP | 'S' => 'SCRPMP',    #Screw pump |  |
+| 74 | siphon.type | G | General | NA | NA | 'G' => 'NA',    #General | out_type not needed as there isn't a type in ICM |
+| 75 | weir.type | S | Standard | weir.link_type | Weir | 'S' => 'Weir',    #Standard |  |
+| 76 | weir.type | VC | Variable Crest | weir.link_type | VCWEIR | 'VC' => 'VCWEIR',    #Variable Crest |  |
+| 77 | weir.type | VW | Variable Weir | weir.link_type | VWWEIR | 'VW' => 'VWWEIR',    #Variable Weir |  |
+| 78 | weir.type | CO | Contracted Rectangular | weir.link_type | COWEIR | 'CO' => 'COWEIR',    #Contracted Rectangular |  |
+| 79 | weir.type | VN | Vee Notch | weir.link_type | VNWEIR | 'VN' => 'VNWEIR',    #Vee Notch |  |
+| 80 | weir.type | TR | Trapezoidal Notch | weir.link_type | TRWEIR | 'TR' => 'TRWEIR',    #Trapezoidal Notch |  |
+| 81 | weir.type | BR | Broad Crested | weir.link_type | BRWEIR | 'BR' => 'BRWEIR',    #Broad Crested |  |
+| 82 | weir.type | GW | Gated weir | weir.link_type | GTWEIR | 'GW' => 'GTWEIR',    #Gated weir | this would be a new type in InfoAsset |
 
 ```ruby
 # IMPORT NETWORK DATA FROM CSV FILES INTO AN ICM NETWORK

@@ -185,6 +185,10 @@ PAUSE
   <img src="https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/8b46b291ee69ac4fb00f0dd558f77c9f39178b59/images/icm_network.JPG" width=800 />
 </p>
 
+The following PDF was used as a template for each import class
+
+[Standards and Choice List ... expanded](https://github.com/hrlewis1974/infoasset2icm_wastewater_model/blob/f9bbd65038cabec49882a9418023ae32a2fbf0df/excel/standards%20and%20choices.pdf)
+
 ```ruby
 # IMPORT NETWORK DATA FROM CSV FILES INTO AN ICM NETWORK
 

@@ -75,20 +75,52 @@ flowchart TD
 
 DESELECT ALL;
 
+list $system_pw = 'PWDB', 'PWSC', 'PWST', 'PWTM', 'PWTP', 'RWST', 'RWTN';
+list $system_sw = 'SWCO', 'SWSC', 'SWTD';
+list $system_ww = 'WWCO', 'WWSC', 'WWST', 'WWTP';
+
+list $system = 'WWCO';
 list $status = 'INUS', 'REPU', 'STBY', 'STOK', 'END', 'VIRT';
 list $type = 'ACBH', 'ACCL', 'ACDP', 'BNDY', 'HHLD', 'END';
 list $pipe_type = 'DSCH_2', 'MAIN', 'TRNK';
 
-SELECT ALL FROM [All Nodes] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(node_type,$type)=FALSE;
-SELECT ALL FROM [All Links] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE AND MEMBER(pipe_type,$pipe_type)=TRUE;
-SELECT ALL FROM [Pump] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
-SELECT ALL FROM [Screen] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
-SELECT ALL FROM [Orifice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
-SELECT ALL FROM [Sluice] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
-SELECT ALL FROM [Flume] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
-SELECT ALL FROM [Siphon] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
-SELECT ALL FROM [Weir] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
-SELECT ALL FROM [Valve] IN Base SCENARIO WHERE MEMBER(status,$status)=TRUE;
+SELECT ALL FROM [Node] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE
+AND MEMBER(system_type,$system)=TRUE 
+AND MEMBER(node_type,$type)=FALSE;
+
+SELECT ALL FROM [Pipe] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE 
+AND MEMBER(system_type,$system)=TRUE 
+AND MEMBER(pipe_type,$pipe_type)=TRUE;
+
+SELECT ALL FROM [Pump] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+SELECT ALL FROM [Screen] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+SELECT ALL FROM [Orifice] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+SELECT ALL FROM [Sluice] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+SELECT ALL FROM [Flume] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+SELECT ALL FROM [Siphon] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+SELECT ALL FROM [Weir] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+SELECT ALL FROM [Valve] IN Base SCENARIO 
+WHERE MEMBER(status,$status)=TRUE;
+
+DESELECT ALL FROM [All Nodes] 
+WHERE count(ds_links.*)=0 
+AND count(us_links.*)=0;
 ```
 
 ```ruby
@@ -771,6 +803,7 @@ As part of the process the following recommendations should be applied to asset 
 - [x] where cover level and pipe depth data is available it is then possible to set the pipe invert flag to #D ... in doing so InfoAsset will work out the correct invert level
 - [x] in the first instance asset data for ancillaries should be populated from the hydraulic models
 - [x] change some valves to flaps to make the import of these assets into ICM easier....besides they are a form of flap valve
+- [x] change system types so the SQL only selects assets required for the model
 
 ## Web
 

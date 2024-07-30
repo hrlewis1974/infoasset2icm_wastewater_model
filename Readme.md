@@ -795,18 +795,22 @@ The above work has tested how data can be imported successfully from InfoAsset i
 
 As part of the process the following recommendations should be applied to asset data updates in InfoAsset:
 
-|action|description|
-|---|---|
-|&check;|work through process of importing InfoAsset data into Innovyze ICM|
-|&check;|unique ID for the following assets needs to be made up of us_node_id and a sequential number: flume, orifice, pump, screen, siphon, sluice, valve and weir|
-|&check;|link type for the above assets needs to be added to the 'standards and choice' list in InfoAsset. Its possible to adopt the same types used in the hydraulic modelling packages|
-|&check;|ground levels in the original data should be saved as GPS_survey points. This way you'll have a record of the original levels before any corrections are made based on the latest ground models and or engineering judgement|
-|&check;|invert levels should be converted to pipe depths... reason being the data would have been collected as depths at each manhole|
-|&check;|where cover level and pipe depth data is available it is then possible to set the pipe invert flag to #D ... in doing so InfoAsset will work out the correct invert level|
-|&cross;|in the first instance asset data for ancillaries should be populated from the hydraulic models|
-|&cross;|change some valves to flaps to make the import of these assets into ICM easier....besides they are a form of flap valve|
-|&check;|change system types so the SQL only selects assets required for the model|
-|&cross;|add nodes to the tsv export routine and add extra fields using SQL which pick up ds_link system_type, pipe_type etc|
+|order|description|action|
+|---|---|---|
+|'1'|work through process of importing InfoAsset data into Innovyze ICM|&check|;
+|'2'|unique ID for the following assets needs to be made up of us_node_id and a sequential number: flume, orifice, pump, screen, siphon, sluice, valve and weir|&check;|
+|'3'|link type for the above assets needs to be added to the 'standards and choice' list in InfoAsset. Its possible to adopt the same types used in the hydraulic modelling packages|&check;|
+|'4'|ground levels in the original data should be saved as GPS_survey points. This way you'll have a record of the original levels before any corrections are made based on the latest ground models and or engineering judgement|&check;|
+|'5'|invert levels should be converted to pipe depths... reason being the data would have been collected as depths at each manhole|&check;|
+|'6'|where cover level and pipe depth data is available it is then possible to set the pipe invert flag to #D ... in doing so InfoAsset will work out the correct invert level|&check;|
+|'7'|in the first instance asset data for ancillaries should be populated from the hydraulic models|&cross;|
+|'8'|change some valves to flaps to make the import of these assets into ICM easier....besides they are a form of flap valve|&cross;|
+|'9'|change system types so the SQL only selects assets required for the model|&check;|
+|'10'|add nodes to the tsv export routine and add extra fields using SQL which pick up ds_link system_type, pipe_type etc|&cross;|
+|'11'||&cross;|
+|'12'||&cross;|
+|'13'||&cross;|
+|'14'||&cross;|
  
 ## Web
 
@@ -816,6 +820,6 @@ As part of the process the following recommendations should be applied to asset 
 
 ## Contacts
 
-council | contact | email | contact details
---- | --- | --- | ---
-WWL | Hywel Lewis | hywel.lewis@wellingtonwater.co.nz | Snr Hydraulic Modeller
+|council|contact|email|contact details|
+|---|---|---|---|
+|WWL|Hywel Lewis|hywel.lewis@wellingtonwater.co.nz|Snr Hydraulic Modeller|

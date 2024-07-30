@@ -4,7 +4,7 @@
 
 # ===========================================================================================
 # parameters
-folder = 'C:\Users\HLewis\Downloads\infoasset2icm_wastewater_model'
+folder = 'C:\Users\HLewis\Downloads\wwl-mod-infoasset2icm-dev'
 
 net=WSApplication.current_network
 net.clear_selection

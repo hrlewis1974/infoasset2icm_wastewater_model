@@ -5,7 +5,7 @@ require 'date'
 WSApplication.use_arcgis_desktop_licence
 
 ## parameters
-folder='C:/Users/HLewis/Downloads/infoasset2icm_wastewater_model/'
+folder='C:/Users/HLewis/Downloads/wwl-mod-infoasset2icm-dev/'
 db=WSApplication.open('//10.0.29.43:40000/wastewater ongoing/system_performance',false)
 nw = db.model_object_from_type_and_id('Model Network',4765)
 

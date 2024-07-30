@@ -806,13 +806,10 @@ As part of the process the following recommendations should be applied to asset 
 - [x] change system types so the SQL only selects assets required for the model
 - [x] add nodes to the tsv export routine and add extra fields using SQL which pick up ds_link system_type, pipe_type etc
 
-Function | MySQL / MariaDB | PostgreSQL | SQLite
-:------------ | :-------------| :-------------| :-------------
-substr | :heavy_check_mark: |  :white_check_mark: | :heavy_check_mark:
-
-|checked|unchecked|crossed|
-|---|---|---|
-|&check;|_|&cross;|
+|action|description|
+|---|---|
+|&check;|work through process of importing InfoAsset data into Innovyze ICM|
+|&cross;|unique ID for the following assets needs to be made up of us_node_id and a sequential number: flume, orifice, pump, screen, siphon, sluice, valve and weir|
  
 ## Web
 
